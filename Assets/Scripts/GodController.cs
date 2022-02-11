@@ -4,17 +4,102 @@ using UnityEngine;
 
 public class GodController : MonoBehaviour
 {
-    public GameObject teleportPoint;
-    public Camera mainCamera;
+    private Camera mainCamera;
+    private GameObject playerObject;
+    private GameObject currentTeleportPoint = null;
+    private Coroutine activeRoutineController = null;
+    private Coroutine cooldownRoutineController = null; 
+    private bool canTeleport = true; //to enable or disable teleportation
 
+    [Header("Teleportation Info")]
+    public GameObject teleportPointPrefab;
+    public float teleportationRadius = 10; 
+    public float teleportationCooldown = 10;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    //destroys teleportation point after player goes past the teleportation radius
+    IEnumerator teleportActiveRoutine(Vector3 spawnPoint)
+    {
+        currentTeleportPoint = Instantiate(teleportPointPrefab, spawnPoint, Quaternion.identity);
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (!playerInTeleportationRadius())
+            {
+                break;
+            }
+        }
+        ResetTeleportation();
+        activeRoutineController = null;
+    }
+    
+    //cooldown after a succesful teleportation
+    IEnumerator teleportCooldownRoutine()
+    {
+        canTeleport = false;
+        yield return new WaitForSeconds(teleportationCooldown);
+        canTeleport = true;
+    }
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        //left click to place teleportation device, left click again to teleport
+        if(Input.GetMouseButtonDown(0) && canTeleport)
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 10;
-            Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
-            Instantiate(teleportPoint,spawnPoint,Quaternion.identity);
+            //if teleportation point does not exist, drop one
+            if (!currentTeleportPoint)
+            {
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10;
+                Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
+                activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
+            }
+            //if teleportation point exists, and player in radius, teleport player
+            else if(playerInTeleportationRadius())
+            {
+                playerObject.transform.position = currentTeleportPoint.transform.position;
+                ResetTeleportation();
+                ResetActiveCoroutine();
+                cooldownRoutineController = StartCoroutine(teleportCooldownRoutine());
+            }
+        }
+    }
+    
+    private bool playerInTeleportationRadius()
+    {
+        //if no teleport point exists
+        if (!currentTeleportPoint)
+            return false;
+
+        //if within radius
+        if (Vector3.SqrMagnitude(playerObject.transform.position - currentTeleportPoint.transform.position)
+                                                            < teleportationRadius * teleportationRadius)
+            return true;
+
+        //if outside radius
+        return false;
+    }
+
+    //reset the half done teleportation
+    private void ResetTeleportation()
+    {
+        if (currentTeleportPoint)
+        {
+            Destroy(currentTeleportPoint);
+            currentTeleportPoint = null;
+        }
+    }
+    //reset the routine tracking the teleportation
+    private void ResetActiveCoroutine()
+    {
+        if (activeRoutineController != null)
+        {
+            StopCoroutine(activeRoutineController);
+            activeRoutineController = null;
         }
     }
 }
