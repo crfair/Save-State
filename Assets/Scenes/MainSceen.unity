@@ -1427,7 +1427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1873550429025946, guid: 05a512aa4c73d604892921f1d2a511e2, type: 3}
       propertyPath: m_TagString
-      value: Platform
+      value: Hazard
       objectReference: {fileID: 0}
     - target: {fileID: 4379362193179976, guid: 05a512aa4c73d604892921f1d2a511e2, type: 3}
       propertyPath: m_RootOrder
@@ -2912,7 +2912,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554503611}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3308,11 +3308,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 518051753014893318, guid: c73e3ed44867846419150f758d68895b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.3
+      value: -6.85
       objectReference: {fileID: 0}
     - target: {fileID: 518051753014893318, guid: c73e3ed44867846419150f758d68895b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.18
+      value: -3.35
       objectReference: {fileID: 0}
     - target: {fileID: 518051753014893318, guid: c73e3ed44867846419150f758d68895b, type: 3}
       propertyPath: m_LocalPosition.z
