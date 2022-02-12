@@ -10,6 +10,9 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] float jumpLimit;
     [SerializeField] float jumpVelocityClamp;
 
+    Vector3 respawnPoint;
+    bool hasPowerUp = false;
+
     Rigidbody2D rb;
     SpriteRenderer sr;
 
@@ -28,6 +31,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        respawnPoint = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -104,6 +108,11 @@ public class PlayerCharacter : MonoBehaviour
         {
             grounded = true;
             hasDoubleJump = true;
+        }
+
+        if(col.gameObject.CompareTag("Hazard"))
+        {
+            gameObject.transform.position = respawnPoint;
         }
     }
 

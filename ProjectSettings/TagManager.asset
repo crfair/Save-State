@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Player 1
   - Platform
+  - Hazard
   layers:
   - Default
   - TransparentFX
