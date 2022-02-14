@@ -15,6 +15,7 @@ public class PlayerCharacter : MonoBehaviour
 
     Rigidbody2D rb;
     SpriteRenderer sr;
+    Animator anim;
 
     //Input Handling
     bool holdingD;
@@ -32,6 +33,7 @@ public class PlayerCharacter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         respawnPoint = gameObject.transform.position;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,6 +69,30 @@ public class PlayerCharacter : MonoBehaviour
         }
 
         #endregion
+
+        #region Animation Handling
+        if (holdingA || holdingD) 
+        {
+            anim.SetBool("Walking", true);
+        }
+        else 
+        {
+            anim.SetBool("Walking", false);
+        }
+
+        if (rb.velocity.y > 0)
+        {
+            anim.SetInteger("Y Velocity", 1);
+        }
+        else if (rb.velocity.y < 0)
+        {
+            anim.SetInteger("Y Velocity", -1);
+        }
+        else 
+        {
+            anim.SetInteger("Y Velocity", 0);
+        }
+        #endregion
     }
 
     void FixedUpdate()
@@ -82,6 +108,7 @@ public class PlayerCharacter : MonoBehaviour
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             sr.flipX = true;
         }
+
 
         if (holdingJump && (grounded || hasDoubleJump))
         {
@@ -100,6 +127,7 @@ public class PlayerCharacter : MonoBehaviour
             }
             grounded = false;
         }
+   
     }
 
     void OnCollisionStay2D(Collision2D col)
