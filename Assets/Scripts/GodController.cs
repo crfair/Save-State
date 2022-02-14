@@ -15,6 +15,7 @@ public class GodController : MonoBehaviour
     public GameObject teleportPointPrefab;
     public float teleportationRadius = 10; 
     public float teleportationCooldown = 10;
+    public string platformTag = "Platform";
 
     private void Start()
     {
@@ -54,9 +55,12 @@ public class GodController : MonoBehaviour
             if (!currentTeleportPoint)
             {
                 Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 10;
-                Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
-                activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
+                if (!clickedOnGround(mousePos))
+                {
+                    mousePos.z = 10;
+                    Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
+                    activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
+                }
             }
             //if teleportation point exists, and player in radius, teleport player
             else if(playerInTeleportationRadius())
@@ -81,6 +85,20 @@ public class GodController : MonoBehaviour
             return true;
 
         //if outside radius
+        return false;
+    }
+
+    private bool clickedOnGround(Vector3 mousePos)
+    {
+        RaycastHit rayCastHit;
+        
+        Ray ray = mainCamera.ScreenPointToRay(mousePos);
+        Debug.Log(ray.origin);
+        Debug.Log(ray.direction);
+        Debug.DrawRay(ray.origin, ray.direction, Color.red,100,false);
+
+        if (Physics.Raycast(mainCamera.ScreenPointToRay(mousePos), out rayCastHit, 1000f) && rayCastHit.collider.CompareTag(platformTag))
+            return true;
         return false;
     }
 
