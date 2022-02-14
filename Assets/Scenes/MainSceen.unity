@@ -3366,6 +3366,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 518051753014893319, guid: c73e3ed44867846419150f758d68895b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 518051753014893319, guid: c73e3ed44867846419150f758d68895b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1494814909
+      objectReference: {fileID: 0}
     - target: {fileID: 518051753014893320, guid: c73e3ed44867846419150f758d68895b, type: 3}
       propertyPath: m_Size.x
       value: 0.5660267
@@ -3454,35 +3462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
       propertyPath: m_AssetsPPU
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_UpscaleRT
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_CropFrameX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_CropFrameY
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_RefResolutionX
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185094, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_RefResolutionY
-      value: 224
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185095, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: m_ForceIntoRT
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7017585772940185095, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
-      propertyPath: orthographic size
-      value: 7.2395835
+      value: 48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27383d6072913b04286435bddd8b0e99, type: 3}
