@@ -27,6 +27,7 @@ public class GodController : MonoBehaviour
     [Header("Trap Information")]
     public GameObject trapPrefab;
     public float trapCooldown = 2;
+    public string playerBoundaryTag = "TheForce";
 
     private void Start()
     {
@@ -93,7 +94,7 @@ public class GodController : MonoBehaviour
         if(Input.GetMouseButtonDown(1) && canSetTrap)
         {
             Vector3 spawnPoint = getMousePosInWorldSpace();
-            if(!clickedOnGround(spawnPoint))
+            if(!clickedOnGround(spawnPoint) && !clickedOnPlayerForceField(spawnPoint))
             {
                 Instantiate(trapPrefab, spawnPoint, Quaternion.identity);
                 trapRoutineController = StartCoroutine(trapCooldownRoutine());
@@ -135,7 +136,16 @@ public class GodController : MonoBehaviour
         }
         return false;
     }
-
+    private bool clickedOnPlayerForceField(Vector3 clickPoint)
+    {
+        int results = Physics2D.OverlapPoint(clickPoint, contactFilter, colliders);
+        for (int i = 0; i < results; i++)
+        {
+            if (colliders[i].tag == playerBoundaryTag)
+                return true;
+        }
+        return false;
+    }
     //reset the half done teleportation
     private void ResetTeleportation()
     {
