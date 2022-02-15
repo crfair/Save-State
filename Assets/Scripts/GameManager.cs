@@ -14,6 +14,5 @@ public class GameManager : MonoBehaviour
     public void OnSave()
     {
        //saving player1 stuff
-       
     }
 }
