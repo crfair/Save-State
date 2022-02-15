@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject titleScreen;
+    [SerializeField] GameObject optionsScreen;
+
+    public void PlayButton() 
     {
-        
+        SceneManager.LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OptionsButton() 
     {
-        
+        titleScreen.SetActive(false);
+        optionsScreen.SetActive(true);
+    }
+
+    public void BackButton() 
+    {
+        optionsScreen.SetActive(false);
+        titleScreen.SetActive(true);
     }
 }
