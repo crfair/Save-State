@@ -136,7 +136,8 @@ public class PlayerCharacter : MonoBehaviour
         if (col.gameObject.CompareTag("Platform") && col.GetContact(0).normal.y > 0)
         {
             grounded = true;
-            hasDoubleJump = true;
+            if (hasPowerUp)
+                hasDoubleJump = true;
         }
 
         if(col.gameObject.CompareTag("Hazard"))
@@ -164,6 +165,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void SetPowerUp(bool powerUp)
     {
+        hasDoubleJump = powerUp;
         hasPowerUp = powerUp;
     }
 }
