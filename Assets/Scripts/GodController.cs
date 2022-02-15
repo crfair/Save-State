@@ -10,8 +10,9 @@ public class GodController : MonoBehaviour
     private Coroutine activeRoutineController = null;
     private Coroutine cooldownRoutineController = null;
     private Coroutine trapRoutineController = null;
+    
     private bool canTeleport = true; //to enable or disable teleportation
-    private bool canSetTrap = true;
+    private bool canSetTrap = true; //to enable or disable trap setting
 
     //variables to check ground collision
     Collider2D[] colliders;
@@ -123,6 +124,7 @@ public class GodController : MonoBehaviour
         mousePos.z = -mainCamera.transform.localPosition.z;
         return mainCamera.ScreenToWorldPoint(mousePos);
     }
+
     private bool clickedOnGround(Vector3 spawnPoint)
     {
         int results = Physics2D.OverlapPoint(spawnPoint, contactFilter, colliders);
