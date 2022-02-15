@@ -8,9 +8,11 @@ public class GodController : MonoBehaviour
     private GameObject playerObject;
     private GameObject currentTeleportPoint = null;
     private Coroutine activeRoutineController = null;
-    private Coroutine cooldownRoutineController = null; 
+    private Coroutine cooldownRoutineController = null;
+    private Coroutine trapRoutineController = null;
     private bool canTeleport = true; //to enable or disable teleportation
-    
+    private bool canSetTrap = true;
+
     //variables to check ground collision
     Collider2D[] colliders;
     ContactFilter2D contactFilter;
@@ -18,8 +20,12 @@ public class GodController : MonoBehaviour
     [Header("Teleportation Info")]
     public GameObject teleportPointPrefab;
     public float teleportationRadius = 10; 
-    public float teleportationCooldown = 10;
+    public float teleportationCooldown = 5;
     public string platformTag = "Platform";
+
+    [Header("Trap Information")]
+    public GameObject trapPrefab;
+    public float trapCooldown = 2;
 
     private void Start()
     {
@@ -54,6 +60,13 @@ public class GodController : MonoBehaviour
         yield return new WaitForSeconds(teleportationCooldown);
         canTeleport = true;
     }
+
+    IEnumerator trapCooldownRoutine()
+    {
+        canSetTrap = false;
+        yield return new WaitForSeconds(trapCooldown);
+        canSetTrap = true;
+    }
     private void Update()
     {
         //left click to place teleportation device, left click again to teleport
@@ -62,9 +75,7 @@ public class GodController : MonoBehaviour
             //if teleportation point does not exist, drop one
             if (!currentTeleportPoint)
             {
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = - mainCamera.transform.localPosition.z;
-                Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
+                Vector3 spawnPoint = getMousePosInWorldSpace();
                 if (!clickedOnGround(spawnPoint))
                     activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
             }
@@ -77,7 +88,19 @@ public class GodController : MonoBehaviour
                 cooldownRoutineController = StartCoroutine(teleportCooldownRoutine());
             }
         }
+
+        if(Input.GetMouseButtonDown(1) && canSetTrap)
+        {
+            Vector3 spawnPoint = getMousePosInWorldSpace();
+            if(!clickedOnGround(spawnPoint))
+            {
+                Instantiate(trapPrefab, spawnPoint, Quaternion.identity);
+                trapRoutineController = StartCoroutine(trapCooldownRoutine());
+            }
+        }
     }
+
+
     
     private bool playerInTeleportationRadius()
     {
@@ -94,6 +117,12 @@ public class GodController : MonoBehaviour
         return false;
     }
 
+    private Vector3 getMousePosInWorldSpace()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = -mainCamera.transform.localPosition.z;
+        return mainCamera.ScreenToWorldPoint(mousePos);
+    }
     private bool clickedOnGround(Vector3 spawnPoint)
     {
         int results = Physics2D.OverlapPoint(spawnPoint, contactFilter, colliders);

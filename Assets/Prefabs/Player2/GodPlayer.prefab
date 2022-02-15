@@ -46,3 +46,6 @@ MonoBehaviour:
   teleportPointPrefab: {fileID: 674691151025322525, guid: f0b33c0e2a174ee4f8879917945ec3a3, type: 3}
   teleportationRadius: 10
   teleportationCooldown: 5
+  platformTag: Platform
+  trapPrefab: {fileID: 6965528168976087874, guid: 11bf6d55044ab264481c96b2d07d0e2f, type: 3}
+  trapCooldown: 2
