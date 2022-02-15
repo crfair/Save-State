@@ -10,9 +10,9 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] float jumpLimit;
     [SerializeField] float jumpVelocityClamp;
 
-    Vector3 respawnPoint;
-    int lives = 1;
-    bool hasPowerUp = false;
+    public Vector3 respawnPoint;
+    public int lives = 1;
+    public bool hasPowerUp = false;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
