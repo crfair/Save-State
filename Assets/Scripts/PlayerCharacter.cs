@@ -148,6 +148,16 @@ public class PlayerCharacter : MonoBehaviour
             Debug.Log("Player lives decreased to " + GetLives());
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Checkpoint"))
+        {
+            respawnPoint = gameObject.transform.position;
+            Debug.Log("New spawn point set.");
+        }
+    }
+
     public int GetLives()
     {
         return lives;
