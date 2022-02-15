@@ -12,6 +12,7 @@ public class PlayerCharacter : MonoBehaviour
 
     Vector3 respawnPoint;
     int lives = 1;
+    bool hasPowerUp = false;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -141,6 +142,9 @@ public class PlayerCharacter : MonoBehaviour
         if(col.gameObject.CompareTag("Hazard"))
         {
             gameObject.transform.position = respawnPoint;
+            AddLives(-1);
+            SetPowerUp(false);
+            Debug.Log("Player lives decreased to " + GetLives());
         }
     }
     public int GetLives()
@@ -153,13 +157,13 @@ public class PlayerCharacter : MonoBehaviour
         lives += life;
     }
 
-    public bool HasDoubleJump()
+    public bool HasPowerUp()
     {
-        return hasDoubleJump;
+        return hasPowerUp;
     }
 
-    public void SetDoubleJump(bool doubleJump)
+    public void SetPowerUp(bool powerUp)
     {
-        hasDoubleJump = doubleJump;
+        hasPowerUp = powerUp;
     }
 }

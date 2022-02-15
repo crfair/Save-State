@@ -28,7 +28,7 @@ public class PowerUpController : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             player.AddLives(1);
-            player.SetDoubleJump(true);
+            player.SetPowerUp(true);
             Debug.Log("Player lives increased to " + player.GetLives());
             gameObject.SetActive(false);
         }
