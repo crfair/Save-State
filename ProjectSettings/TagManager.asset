@@ -7,6 +7,7 @@ TagManager:
   - Player 1
   - Platform
   - Hazard
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -49,4 +50,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2800152387
+    locked: 0
+  - name: Props
+    uniqueID: 2154711133
     locked: 0
