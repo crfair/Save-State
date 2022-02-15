@@ -11,7 +11,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] float jumpVelocityClamp;
 
     Vector3 respawnPoint;
-    bool hasPowerUp = false;
+    int lives = 1;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -143,5 +143,23 @@ public class PlayerCharacter : MonoBehaviour
             gameObject.transform.position = respawnPoint;
         }
     }
+    public int GetLives()
+    {
+        return lives;
+    }
 
+    public void AddLives(int life)
+    {
+        lives += life;
+    }
+
+    public bool HasDoubleJump()
+    {
+        return hasDoubleJump;
+    }
+
+    public void SetDoubleJump(bool doubleJump)
+    {
+        hasDoubleJump = doubleJump;
+    }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Platform
   - Hazard
   - Environment
+  - Checkpoint
+  - PowerUp
   layers:
   - Default
   - TransparentFX
