@@ -63,7 +63,7 @@ public class GodController : MonoBehaviour
             if (!currentTeleportPoint)
             {
                 Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 10;
+                mousePos.z = - mainCamera.transform.localPosition.z;
                 Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
                 if (!clickedOnGround(spawnPoint))
                     activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
