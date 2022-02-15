@@ -10,6 +10,10 @@ public class GodController : MonoBehaviour
     private Coroutine activeRoutineController = null;
     private Coroutine cooldownRoutineController = null; 
     private bool canTeleport = true; //to enable or disable teleportation
+    
+    //variables to check ground collision
+    Collider2D[] colliders;
+    ContactFilter2D contactFilter;
 
     [Header("Teleportation Info")]
     public GameObject teleportPointPrefab;
@@ -21,6 +25,10 @@ public class GodController : MonoBehaviour
     {
         mainCamera = Camera.main;
         playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        colliders = new Collider2D[5];
+        contactFilter = new ContactFilter2D();
+        contactFilter = contactFilter.NoFilter();
     }
 
     //destroys teleportation point after player goes past the teleportation radius
@@ -55,12 +63,10 @@ public class GodController : MonoBehaviour
             if (!currentTeleportPoint)
             {
                 Vector3 mousePos = Input.mousePosition;
-                if (!clickedOnGround(mousePos))
-                {
-                    mousePos.z = 10;
-                    Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
+                mousePos.z = 10;
+                Vector3 spawnPoint = mainCamera.ScreenToWorldPoint(mousePos);
+                if (!clickedOnGround(spawnPoint))
                     activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
-                }
             }
             //if teleportation point exists, and player in radius, teleport player
             else if(playerInTeleportationRadius())
@@ -88,17 +94,14 @@ public class GodController : MonoBehaviour
         return false;
     }
 
-    private bool clickedOnGround(Vector3 mousePos)
+    private bool clickedOnGround(Vector3 spawnPoint)
     {
-        RaycastHit rayCastHit;
-        
-        Ray ray = mainCamera.ScreenPointToRay(mousePos);
-        Debug.Log(ray.origin);
-        Debug.Log(ray.direction);
-        Debug.DrawRay(ray.origin, ray.direction, Color.red,100,false);
-
-        if (Physics.Raycast(mainCamera.ScreenPointToRay(mousePos), out rayCastHit, 1000f) && rayCastHit.collider.CompareTag(platformTag))
-            return true;
+        int results = Physics2D.OverlapPoint(spawnPoint, contactFilter, colliders);
+        for(int i = 0;i<results;i++)
+        {
+            if (colliders[i].tag == platformTag)
+                return true;
+        }
         return false;
     }
 

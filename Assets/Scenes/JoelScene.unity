@@ -315,7 +315,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -355,6 +355,10 @@ PrefabInstance:
     - target: {fileID: 8166118766971460032, guid: 3ebe111f07c57b34689ba1c8255f1af0, type: 3}
       propertyPath: m_Name
       value: GodPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166118766971460094, guid: 3ebe111f07c57b34689ba1c8255f1af0, type: 3}
+      propertyPath: teleportationCooldown
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8166118766971460095, guid: 3ebe111f07c57b34689ba1c8255f1af0, type: 3}
       propertyPath: m_RootOrder
