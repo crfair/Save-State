@@ -406,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1215,7 +1215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.75
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3767,7 +3767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4251,7 +4251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4686,7 +4686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1496266575662398208, guid: c934f839a883a5347bbb0126f0af80bd, type: 3}
       propertyPath: m_LocalPosition.z
