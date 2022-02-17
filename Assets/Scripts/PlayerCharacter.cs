@@ -10,9 +10,9 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] float jumpLimit;
     [SerializeField] float jumpVelocityClamp;
 
-    Vector3 respawnPoint;
-    int lives = 1;
-    bool hasPowerUp = false;
+    public Vector3 respawnPoint;
+    public int lives = 1;
+    public bool hasPowerUp = false;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -148,6 +148,16 @@ public class PlayerCharacter : MonoBehaviour
             Debug.Log("Player lives decreased to " + GetLives());
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Checkpoint"))
+        {
+            respawnPoint = gameObject.transform.position;
+            Debug.Log("New spawn point set.");
+        }
+    }
+
     public int GetLives()
     {
         return lives;
