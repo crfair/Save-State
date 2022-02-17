@@ -14,6 +14,7 @@ public class PlayerCharacter : MonoBehaviour, PlayPause
     public Vector3 respawnPoint;
     public int lives = 1;
     public bool hasPowerUp = false;
+    private bool isIce = false;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
