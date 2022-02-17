@@ -7,7 +7,7 @@ public class CrusherManager : MonoBehaviour
     private Vector3 homePosition;
     private Vector3 targetPosition;
     public Vector3 downPosition;
-    private float speed = 3f;
+    public float speed = 3f;
 
     // Start is called before the first frame update
     void Start()
