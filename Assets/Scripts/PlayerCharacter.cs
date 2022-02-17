@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCharacter : MonoBehaviour
+public class PlayerCharacter : MonoBehaviour, PlayPause
 {
+    bool playerPaused = false;
 
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
@@ -29,7 +30,7 @@ public class PlayerCharacter : MonoBehaviour
     float jumpTimer = 0f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -40,6 +41,13 @@ public class PlayerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused && !playerPaused)
+            Pause();
+        else if (!GameManager.isPaused && playerPaused)
+            Play();
+
+        if (playerPaused)
+            return;
         #region Input Handling
         if (Input.GetKey("d"))
         {
@@ -177,5 +185,19 @@ public class PlayerCharacter : MonoBehaviour
     {
         hasDoubleJump = powerUp;
         hasPowerUp = powerUp;
+    }
+    public bool isGrounded()
+    {
+        return grounded;
+    }
+
+    public void Play()
+    {
+        playerPaused = false;
+    }
+
+    public void Pause()
+    {
+        playerPaused = true;
     }
 }

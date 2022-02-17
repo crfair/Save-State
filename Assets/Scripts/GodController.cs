@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GodController : MonoBehaviour
+public class GodController : MonoBehaviour,PlayPause
 {
+    bool player2Paused = false;
+
     private Camera mainCamera;
     private GameObject playerObject;
-    private GameObject currentTeleportPoint = null;
+
+    private GameObject currentTeleportPoint = null;    
+
     private Coroutine activeRoutineController = null;
     private Coroutine cooldownRoutineController = null;
     private Coroutine trapRoutineController = null;
@@ -29,7 +33,7 @@ public class GodController : MonoBehaviour
     public float trapCooldown = 2;
     public string playerBoundaryTag = "TheForce";
 
-    private void Start()
+    private void Awake()
     {
         mainCamera = Camera.main;
         playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -37,6 +41,51 @@ public class GodController : MonoBehaviour
         colliders = new Collider2D[5];
         contactFilter = new ContactFilter2D();
         contactFilter = contactFilter.NoFilter();
+    }
+
+
+    private void Update()
+    {
+
+        if (GameManager.isPaused && !player2Paused)
+            Pause();
+        else if (!GameManager.isPaused && player2Paused)
+            Play();
+
+        if (player2Paused)
+            return;
+
+        //left click to place teleportation device, left click again to teleport
+        if (Input.GetMouseButtonDown(0) && canTeleport)
+        {
+            //if teleportation point does not exist, drop one
+            if (!currentTeleportPoint)
+            {
+                Vector3 spawnPoint = getMousePosInWorldSpace();
+                if (!clickedOnGround(spawnPoint))
+                    activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
+            }
+            //if teleportation point exists, and player in radius, teleport player
+            else if(playerInTeleportationRadius())
+            {
+                playerObject.transform.position = currentTeleportPoint.transform.position;
+                ResetTeleportation();
+                ResetActiveCoroutine();
+                canTeleport = false;
+                cooldownRoutineController = StartCoroutine(teleportCooldownRoutine());
+            }
+        }
+
+        if(Input.GetMouseButtonDown(1) && canSetTrap)
+        {
+            Vector3 spawnPoint = getMousePosInWorldSpace();
+            if(!clickedOnGround(spawnPoint) && !clickedOnPlayerForceField(spawnPoint))
+            {
+                Instantiate(trapPrefab, spawnPoint, Quaternion.identity);
+                canSetTrap = false;
+                trapRoutineController = StartCoroutine(trapCooldownRoutine());
+            }
+        }
     }
 
     //destroys teleportation point after player goes past the teleportation radius
@@ -54,56 +103,20 @@ public class GodController : MonoBehaviour
         ResetTeleportation();
         activeRoutineController = null;
     }
-    
+
     //cooldown after a succesful teleportation
     IEnumerator teleportCooldownRoutine()
     {
-        canTeleport = false;
         yield return new WaitForSeconds(teleportationCooldown);
         canTeleport = true;
     }
 
     IEnumerator trapCooldownRoutine()
     {
-        canSetTrap = false;
         yield return new WaitForSeconds(trapCooldown);
         canSetTrap = true;
     }
-    private void Update()
-    {
-        //left click to place teleportation device, left click again to teleport
-        if(Input.GetMouseButtonDown(0) && canTeleport)
-        {
-            //if teleportation point does not exist, drop one
-            if (!currentTeleportPoint)
-            {
-                Vector3 spawnPoint = getMousePosInWorldSpace();
-                if (!clickedOnGround(spawnPoint))
-                    activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
-            }
-            //if teleportation point exists, and player in radius, teleport player
-            else if(playerInTeleportationRadius())
-            {
-                playerObject.transform.position = currentTeleportPoint.transform.position;
-                ResetTeleportation();
-                ResetActiveCoroutine();
-                cooldownRoutineController = StartCoroutine(teleportCooldownRoutine());
-            }
-        }
 
-        if(Input.GetMouseButtonDown(1) && canSetTrap)
-        {
-            Vector3 spawnPoint = getMousePosInWorldSpace();
-            if(!clickedOnGround(spawnPoint) && !clickedOnPlayerForceField(spawnPoint))
-            {
-                Instantiate(trapPrefab, spawnPoint, Quaternion.identity);
-                trapRoutineController = StartCoroutine(trapCooldownRoutine());
-            }
-        }
-    }
-
-
-    
     private bool playerInTeleportationRadius()
     {
         //if no teleport point exists
@@ -136,6 +149,7 @@ public class GodController : MonoBehaviour
         }
         return false;
     }
+    
     private bool clickedOnPlayerForceField(Vector3 clickPoint)
     {
         int results = Physics2D.OverlapPoint(clickPoint, contactFilter, colliders);
@@ -163,5 +177,20 @@ public class GodController : MonoBehaviour
             StopCoroutine(activeRoutineController);
             activeRoutineController = null;
         }
+    }
+
+    public void Play()
+    {
+        canSetTrap = true;
+        canTeleport = true;
+        player2Paused = false;
+    }
+
+    public void Pause()
+    {
+        canSetTrap = false;
+        canTeleport = false;
+        player2Paused = true;
+
     }
 }
