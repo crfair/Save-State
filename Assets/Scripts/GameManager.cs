@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
 
         //respawn point
         charController.respawnPoint = new Vector3(PlayerPrefs.GetFloat("resX", player1.transform.position.x), PlayerPrefs.GetFloat("resY", player1.transform.position.y), PlayerPrefs.GetFloat("resZ", player1.transform.position.z));
+
+        //reset number of traps
+        GodController.activeTraps = 0;
     }
     private void Update()
     {

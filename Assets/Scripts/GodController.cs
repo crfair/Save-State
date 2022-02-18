@@ -13,10 +13,11 @@ public class GodController : MonoBehaviour,PlayPause
 
     private Coroutine activeRoutineController = null;
     private Coroutine cooldownRoutineController = null;
-    private Coroutine trapRoutineController = null;
     
     private bool canTeleport = true; //to enable or disable teleportation
     private bool canSetTrap = true; //to enable or disable trap setting
+
+    public static int activeTraps = 0; //tracks active traps at the moment
 
     //variables to check ground collision
     Collider2D[] colliders;
@@ -30,10 +31,10 @@ public class GodController : MonoBehaviour,PlayPause
 
     [Header("Trap Information")]
     public GameObject trapPrefab;
-    public float trapCooldown = 2;
     public string playerBoundaryTag = "TheForce";
+    public int maxAllowedActiveTraps = 2;
 
-    private void Awake()
+    private void Awake() 
     {
         mainCamera = Camera.main;
         playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -42,7 +43,6 @@ public class GodController : MonoBehaviour,PlayPause
         contactFilter = new ContactFilter2D();
         contactFilter = contactFilter.NoFilter();
     }
-
 
     private void Update()
     {
@@ -71,19 +71,17 @@ public class GodController : MonoBehaviour,PlayPause
                 playerObject.transform.position = currentTeleportPoint.transform.position;
                 ResetTeleportation();
                 ResetActiveCoroutine();
-                canTeleport = false;
                 cooldownRoutineController = StartCoroutine(teleportCooldownRoutine());
             }
         }
 
-        if(Input.GetMouseButtonDown(1) && canSetTrap)
+        if(Input.GetMouseButtonDown(1) && activeTraps<maxAllowedActiveTraps && canSetTrap)
         {
             Vector3 spawnPoint = getMousePosInWorldSpace();
             if(!clickedOnGround(spawnPoint) && !clickedOnPlayerForceField(spawnPoint))
             {
                 Instantiate(trapPrefab, spawnPoint, Quaternion.identity);
-                canSetTrap = false;
-                trapRoutineController = StartCoroutine(trapCooldownRoutine());
+                ++activeTraps;
             }
         }
     }
@@ -107,14 +105,9 @@ public class GodController : MonoBehaviour,PlayPause
     //cooldown after a succesful teleportation
     IEnumerator teleportCooldownRoutine()
     {
+        canTeleport = false;
         yield return new WaitForSeconds(teleportationCooldown);
         canTeleport = true;
-    }
-
-    IEnumerator trapCooldownRoutine()
-    {
-        yield return new WaitForSeconds(trapCooldown);
-        canSetTrap = true;
     }
 
     private bool playerInTeleportationRadius()

@@ -48,4 +48,5 @@ MonoBehaviour:
   teleportationCooldown: 5
   platformTag: Platform
   trapPrefab: {fileID: 6965528168976087874, guid: 11bf6d55044ab264481c96b2d07d0e2f, type: 3}
-  trapCooldown: 2
+  playerBoundaryTag: TheForce
+  maxAllowedActiveTraps: 2
