@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour
     [Header("Pause Menu Stuff")]
     public GameObject pauseMenuPanel;
     
-    [Header("Save Objects")]
+    [Header("Save Stuff")]
     public GameObject player1;
+    public float autoSaveInterval = 30f;
+    private float autoSaveTicker = 0f;
 
     private void Start()
     {
+        this.Play();
+
         PlayerCharacter charController = player1.GetComponent<PlayerCharacter>();
 
         //player 1 position
@@ -41,6 +45,14 @@ public class GameManager : MonoBehaviour
             else
                 Pause();
         }
+
+        //auto saving
+        autoSaveTicker += Time.deltaTime;
+        if(autoSaveTicker>autoSaveInterval)
+        {
+            this.OnSave();
+            autoSaveTicker = 0f;
+        }
     }
     public void Play()
     {
@@ -61,6 +73,7 @@ public class GameManager : MonoBehaviour
     }
     public void QuitGame()
     {
+        this.OnSave();
         Application.Quit();
     }
 
@@ -87,6 +100,16 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("resY", charController.respawnPoint.y);
         PlayerPrefs.SetFloat("resZ", charController.respawnPoint.z);
     }
+    public void OnLoad()
+    {
+        //reload scene with saved player prefs
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
+    public void OnClear()
+    {
+        //clear save
+        PlayerPrefs.DeleteAll();
+    }
 
 }
