@@ -4375,34 +4375,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1524124432}
-    - target: {fileID: 4662319532365045422, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: QuitGame
-      objectReference: {fileID: 0}
     - target: {fileID: 4662319533467464560, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1524124432}
-    - target: {fileID: 4662319533467464560, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
-      objectReference: {fileID: 0}
     - target: {fileID: 4662319533729403174, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1524124432}
-    - target: {fileID: 4662319533729403174, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Menu
-      objectReference: {fileID: 0}
     - target: {fileID: 4662319533744431265, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1524124432}
-    - target: {fileID: 4662319533744431265, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSave
-      objectReference: {fileID: 0}
+    - target: {fileID: 5604100025407511537, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1524124432}
+    - target: {fileID: 8580689489284652493, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1524124432}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcf18d216d532cb4f9795ff9cd20091c, type: 3}
 --- !u!224 &1754380266 stripped
