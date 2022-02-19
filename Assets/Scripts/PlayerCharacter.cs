@@ -25,6 +25,7 @@ public class PlayerCharacter : MonoBehaviour, PlayPause
     bool holdingA;
     bool holdingJump;
     bool releaseJump;
+    bool pressJump;
     bool grounded;
     bool hasDoubleJump;
 
@@ -73,6 +74,11 @@ public class PlayerCharacter : MonoBehaviour, PlayPause
             holdingJump = true;
         }
 
+        if (Input.GetKeyDown("space"))
+        {
+            pressJump = true;
+        }
+
         if (Input.GetKeyUp("space"))
         {
             holdingJump = false;
@@ -119,6 +125,10 @@ public class PlayerCharacter : MonoBehaviour, PlayPause
             sr.flipX = true;
         }
 
+        if (pressJump && grounded)
+        {
+            //SoundManager.PlaySound("jump");
+        }
 
         if (holdingJump && (grounded || hasDoubleJump))
         {

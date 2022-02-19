@@ -61,6 +61,7 @@ public class GodController : MonoBehaviour,PlayPause
             //if teleportation point does not exist, drop one
             if (!currentTeleportPoint)
             {
+                SoundManager.PlaySound("save");
                 Vector3 spawnPoint = getMousePosInWorldSpace();
                 if (!clickedOnGround(spawnPoint))
                     activeRoutineController = StartCoroutine(teleportActiveRoutine(spawnPoint));
@@ -68,6 +69,7 @@ public class GodController : MonoBehaviour,PlayPause
             //if teleportation point exists, and player in radius, teleport player
             else if(playerInTeleportationRadius())
             {
+                SoundManager.PlaySound("load");
                 playerObject.transform.position = currentTeleportPoint.transform.position;
                 ResetTeleportation();
                 ResetActiveCoroutine();
