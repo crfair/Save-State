@@ -2740,6 +2740,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1819406272}
     - target: {fileID: 6548664763184021174, guid: 7a16d8e522b7c2947a2a46c62eb3a4bf, type: 3}
+      propertyPath: powerUps
+      value: 
+      objectReference: {fileID: 1035413307}
+    - target: {fileID: 6548664763184021174, guid: 7a16d8e522b7c2947a2a46c62eb3a4bf, type: 3}
       propertyPath: pauseMenuPanel
       value: 
       objectReference: {fileID: 1754380267}

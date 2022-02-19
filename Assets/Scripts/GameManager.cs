@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Save Stuff")]
     public GameObject player1;
     public float autoSaveInterval = 30f;
+    public GameObject powerUps;
     private float autoSaveTicker = 0f;
 
     private void Start()
@@ -38,6 +39,20 @@ public class GameManager : MonoBehaviour
 
         //reset number of traps
         GodController.activeTraps = 0;
+
+        //enable or disable powerups
+        int children = powerUps.transform.childCount;
+        for (int i = 0; i < children; i++)
+        {
+            if (PlayerPrefs.GetInt("PowerUp" + (i + 1).ToString(), 1) == 0)
+            {
+                powerUps.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            else
+            {
+                powerUps.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
     }
     private void Update()
     {
@@ -102,6 +117,20 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("resX", charController.respawnPoint.x);
         PlayerPrefs.SetFloat("resY", charController.respawnPoint.y);
         PlayerPrefs.SetFloat("resZ", charController.respawnPoint.z);
+
+        //powerups active
+        int children = powerUps.transform.childCount;
+        for (int i = 0; i < children; i++)
+        {
+            if (powerUps.transform.GetChild(i).gameObject.activeInHierarchy)
+            {
+                PlayerPrefs.SetInt("PowerUp" + (i + 1).ToString(), 1);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("PowerUp" + (i + 1).ToString(), 0);
+            }
+        }
     }
     public void OnLoad()
     {

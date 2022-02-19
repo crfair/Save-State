@@ -19,6 +19,7 @@ public class Victory : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene("Title Screen");
     }
 }
